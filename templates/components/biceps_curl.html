@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-7">
                 <div class="jumbotron">
-
+                    <video id="video" autoplay></video>
                     <img id="video_feed" src="{{ url_for('static', filename='img/camera.svg') }}" alt="Video Feed"
                         class="" style="width: 100%; height: auto;" />
                     <div class="controls mt-3">
@@ -60,6 +60,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        const video = document.getElementById('video');
+        video.src = "https://test-4vf9.onrender.com/video_feed";
         // Tarihi otomatik olarak ayarla
         document.getElementById("date").innerText = new Date().toLocaleDateString();
         let cameraStarted = false;  // Kamera durumu için bir değişken
