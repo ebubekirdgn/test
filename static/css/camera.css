@@ -1,0 +1,40 @@
+#container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#video-container {
+    width: 80%;
+    height: 930px;
+    overflow: hidden;
+    position: relative;
+}
+
+button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#video_feed {
+    width: 100%; /* Tam genişlikte */
+    height: auto; /* Yüksekliği otomatik ayarlama */
+    max-height: 90vh; /* Maksimum yüksekliği %90 ayarla */
+}
+
+#controls-container {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

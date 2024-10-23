@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><center>My Statistics</center></div>
+        </div>
+        <div class="card-body">
+            <div class="chart-container">
+                <canvas id="multipleLineChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/plugin/chart.js/chart.min.js') }}"></script>
+<script>
+    // Sabit renkler
+    const colors = [
+        "#1d7af3", // Biceps Curl
+        "#f3545d", // Lateral Raise
+        "#59d05d", // Shoulder Press
+        "#FFC107", // Squat
+        "#17a2b8", // Triceps Extension
+        "#007bff"  // Crunch
+    ];
+
+    // Backend'den gelen totals verisi
+    const exerciseTotals = {
+        "Biceps Curl": {{ totals['biceps_curl']['total_biceps_curl'] | tojson }},
+        "Lateral Raise": {{ totals['lateral_raise']['total_lateral_raise'] | tojson }},
+        "Shoulder Press": {{ totals['shoulder_press']['total_shoulder_press'] | tojson }},
+        "Squat": {{ totals['squat']['total_squat'] | tojson }},
+        "Triceps Extension": {{ totals['triceps_extension']['total_triceps_extension'] | tojson }},
+        "Crunch": {{ totals['crunch']['total_crunch'] | tojson }}
+    };
+    // Şu anki ayı al
+    const currentMonthIndex = new Date().getMonth(); // 0 tabanlı (Jan: 0, Dec: 11)
+
+    // Multiple Line Chart (Line Chart için datasetleri hazırlıyoruz)
+    var multipleLineChart = document
+        .getElementById("multipleLineChart")
+        .getContext("2d");
+
+    // Veri setlerini oluştururken yalnızca mevcut ayda verisi olan hareketleri dahil et
+    var lineChartDatasets = Object.keys(exerciseTotals).map((exercise, index) => {
+        const total = exerciseTotals[exercise];
+        if (total > 0) { // Eğer mevcut ayda toplam veri varsa
+            return {
+                label: exercise,
+                borderColor: colors[index],
+                pointBorderColor: "#FFF",
+                pointBackgroundColor: colors[index],
+                pointBorderWidth: 2,
+                pointHoverRadius: 4,
+                pointHoverBorderWidth: 1,
+                pointRadius: 6,
+                backgroundColor: "transparent",
+                fill: true,
+                borderWidth: 2,
+                data: new Array(12).fill(0).map((val, monthIndex) => monthIndex === currentMonthIndex ? total : 0) // Yalnızca mevcut ayda değer var
+            };
+        }
+        return null; // Veri yoksa null döner
+    }).filter(dataset => dataset); // null olanları filtrele
+
+    // Grafik nesnesini oluştur
+    var myMultipleLineChart = new Chart(multipleLineChart, {
+        type: "line",
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: lineChartDatasets // Sadece mevcut ayda verisi olan hareketlerin datasetleri
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 10,
+                        max: 100 // Y ekseni 100'e kadar gidecek şekilde ayarlanabilir
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Multiple Line Chart'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Fitness AI - Kişisel Antrenman Asistanı</title>
+  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+  <link rel="icon" href="{{ url_for('static', filename='img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
+
+
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/plugins.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/kaiadmin.min.css') }} " />
+
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/demo.css') }}" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar" data-background-color="dark">
+      <div class="sidebar-logo">
+        <!-- Logo Header -->
+        <div class="logo-header">
+          <a href="/layout" class="logo">
+            <img src="{{ url_for('static', filename='img/logo_light.svg') }}" alt="navbar brand" class="navbar-brand"
+              height="20" />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical-alt"></i>
+          </button>
+        </div>
+        <!-- End Logo Header -->
+      </div>
+      <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+          <ul class="nav nav-secondary">
+
+            <li class="nav-section">
+              <span class="sidebar-mini-icon">
+                <i class="fa fa-ellipsis-h"></i>
+              </span>
+              <h4 class="text-section">Components</h4>
+            </li>
+            <li class="nav-item">
+              <a data-bs-toggle="collapse" href="#base">
+                <i class="fas fa-layer-group"></i>
+                <p>Fitness</p>
+                <span class="caret"></span>
+              </a>
+              <div class="collapse" id="base">
+                <ul class="nav nav-collapse">
+                  <li>
+                    <a class="nav-link" href="{{ url_for('exercise', exercise_name='biceps_curl') }}">
+                      <span class="sub-item my-span">Biceps Curl</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="{{ url_for('exercise', exercise_name='triceps_extension') }}">
+                      <span class="sub-item my-span" data-url="/api/triceps_extension">Triceps Extension</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="{{ url_for('exercise', exercise_name='lateral_raise') }}"
+                      data-url="/api/lateral_raise">
+                      <span class="sub-item my-span">Lateral Raise</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="{{ url_for('exercise', exercise_name='squat') }}" data-url="/api/squat">
+                      <span class="sub-item my-span">Squat</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="{{ url_for('exercise', exercise_name='shoulder_press') }}"
+                      data-url="/api/shoulder_press">
+                      <span class="sub-item my-span">Shoulder Press</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="{{ url_for('exercise', exercise_name='crunch') }}" data-url="/api/crunch">
+                      <span class="sub-item my-span">Crunch</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- End Sidebar -->
+
+    <div class="main-panel">
+      <div class="main-header">
+        <div class="main-header-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <!-- Navbar Header -->
+        <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+          <div class="container-fluid">
+            <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+              <li class="nav-item topbar-user dropdown hidden-caret">
+                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                  <div class="avatar-sm">
+                    <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="..."
+                      class="avatar-img rounded-circle" />
+                  </div>
+                  <span class="profile-username">
+                    <span class="fw-bold">{{user}}</span>
+                  </span>
+                </a>
+                <ul class="dropdown-menu dropdown-user animated fadeIn">
+                  <div class="dropdown-user-scroll scrollbar-outer">
+                    <li>
+                      <div class="user-box">
+                        <div class="avatar-lg">
+                          <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="image profile"
+                            class="avatar-img rounded" />
+                        </div>
+                        <div class="u-text">
+                          <h4>{{user}}</h4>
+                          <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ url_for('statistics') }}">My Statistics</a>
+                      
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ url_for('logout') }}">Çıkış Yap</a>
+                    </li>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+      </div>
+
+      <div class="container">
+        <div class="page-inner">
+          <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+            <div>
+              <h3 class="fw-bold mb-3">Dashboard</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center  bubble-shadow-small">
+                        <img src="{{ url_for('static', filename='img/biceps_curl.gif') }}" alt="Kullanıcı İkonu"
+                          class="img-fluid" style="max-width: 66px;">
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Biceps Curl</p>
+                        <h4 class="card-title">{{ totals['biceps_curl']['total_biceps_curl'] }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center  bubble-shadow-small">
+                        <img src="{{ url_for('static', filename='img/triceps_extension.gif') }}" alt="Kullanıcı İkonu"
+                          class="img-fluid" style="max-width: 90px;">
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Triceps Extension</p>
+                        <h4 class="card-title">{{ totals['triceps_extension']['total_triceps_extension'] }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center  bubble-shadow-small">
+                        <img src="{{ url_for('static', filename='img/lateral_raise.gif') }}" alt="Kullanıcı İkonu"
+                          class="img-fluid" style="max-width: 90px;">
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Lateral Raise</p>
+                        <h4 class="card-title">{{ totals['lateral_raise']['total_lateral_raise'] }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center bubble-shadow-small">
+                        <img src="{{ url_for('static', filename='img/squat.gif') }}" alt="Kullanıcı İkonu"
+                          class="img-fluid" style="max-width: 90px;">
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Squat</p>
+                        <h4 class="card-title">{{ totals['squat']['total_squat'] }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center bubble-shadow-small">
+                        <img src="{{ url_for('static', filename='img/conventional-sit-up.gif') }}" alt="Kullanıcı İkonu"
+                          class="img-fluid" style="max-width: 80px;">
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Crunch</p>
+                        <h4 class="card-title"> {{ totals['crunch']['total_crunch'] }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center bubble-shadow-small">
+                        <img src="{{ url_for('static', filename='img/shoulder_press.gif') }}" alt="Kullanıcı İkonu"
+                          class="img-fluid" style="max-width: 80px;">
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Shoulder Press</p>
+                        <h4 class="card-title">{{ totals['shoulder_press']['total_shoulder_press'] }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-round" id="exercise-content">
+                {% block content %}
+                <!-- Varsayılan içerik buraya gelecek -->
+                {% endblock %}
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid d-flex justify-content-between">
+          <nav class="pull-left">
+            <ul class="nav">
+            </ul>
+          </nav>
+        </div>
+      </footer>
+    </div>
+
+    <!-- End Custom template -->
+  </div>
+
+
+  <!-- Fonts and icons -->
+  <script src="{{ url_for('static', filename='js/plugin/webfont/webfont.min.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery Kütüphanesi -->
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: [
+          "Font Awesome 5 Solid",
+          "Font Awesome 5 Regular",
+          "Font Awesome 5 Brands",
+          "simple-line-icons",
+        ],
+        urls: ["{{ url_for('static', filename='css/fonts.min.css') }}"],
+      },
+      active: function () {
+        sessionStorage.fonts = true;
+      },
+    });
+
+    function loadExercise(exercise) {
+      $.ajax({
+        url: `/${exercise}`,  // Egzersiz URL'si
+        type: 'GET',
+        success: function (response) {
+          $('#exercise-content').html(response);  // Gelen içeriği yerleştir
+        },
+        error: function () {
+          alert('Egzersiz yüklenirken bir hata oluştu.');
+        }
+      });
+    }
+  </script>
+  <!--   Core JS Files   -->
+  <script src="{{ url_for('static', filename='js/core/jquery-3.7.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/core/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/core/bootstrap.min.js') }}"></script>
+
+  <!-- jQuery Scrollbar -->
+  <script src="{{ url_for('static', filename='js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+
+  <!-- Chart JS -->
+  <script src="{{ url_for('static', filename='js/plugin/chart.js/chart.min.js') }}"></script>
+
+  <!-- jQuery Sparkline -->
+  <script src="{{ url_for('static', filename='js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+
+  <!-- Chart Circle -->
+  <script src="{{ url_for('static', filename='js/plugin/chart-circle/circles.min.js') }}"></script>
+
+  <!-- Datatables -->
+  <script src="{{ url_for('static', filename='js/plugin/datatables/datatables.min.js') }}"></script>
+
+  <!-- Bootstrap Notify -->
+  <script src="{{ url_for('static', filename='js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+
+  <!-- jQuery Vector Maps -->
+  <script src="{{ url_for('static', filename='js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/plugin/jsvectormap/world.js') }}"></script>
+
+  <!-- Sweet Alert -->
+  <script src="{{ url_for('static', filename='js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+
+  <!-- Kaiadmin JS -->
+  <script src="{{ url_for('static', filename='js/kaiadmin.min.js') }}"></script>
+
+  <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+  <script src="{{ url_for('static', filename='js/setting-demo.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/demo.js') }}"></script>
+
+</body>
+
+</html>
