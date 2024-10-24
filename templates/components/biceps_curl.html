@@ -20,7 +20,7 @@
                 <img id="video_feed" src="{{ url_for('static', filename='img/camera.svg') }}" alt="Video Feed" class=""
                     style="width: 100%; height: auto;" />
                 <div class="controls mt-3">
-
+                    <video id="videoElement" autoplay playsinline></video>
                 </div>
 
             </div>
@@ -63,6 +63,22 @@
         // Tarihi otomatik olarak ayarla
         document.getElementById("date").innerText = new Date().toLocaleDateString();
         let cameraStarted = false;  // Kamera durumu için bir değişken
+
+        document.addEventListener('DOMContentLoaded', function () {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    const video = document.getElementById('videoElement');
+                    if (video) {
+                        video.srcObject = stream;
+                        video.play();
+                    } else {
+                        console.error("Video elementi bulunamadı");
+                    }
+                })
+                .catch(function (err) {
+                    console.log("Kamera açma hatası: " + err);
+                });
+        });
 
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
