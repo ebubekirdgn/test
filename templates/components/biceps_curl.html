@@ -15,14 +15,14 @@
     <div class="page-inner">
         <div class="row">
             <div class="col-md-7">
-              
 
-                    <img id="video_feed" src="{{ url_for('static', filename='img/camera.svg') }}" alt="Video Feed"
-                        class="" style="width: 100%; height: auto;" />
-                    <div class="controls mt-3">
 
-                    </div>
-             
+                <img id="video_feed" src="{{ url_for('static', filename='img/camera.svg') }}" alt="Video Feed" class=""
+                    style="width: 100%; height: auto;" />
+                <div class="controls mt-3">
+
+                </div>
+
             </div>
             <div class="col-md-4 ">
                 <div class="card-pricing2 card-primary">
@@ -63,6 +63,16 @@
         // Tarihi otomatik olarak ayarla
         document.getElementById("date").innerText = new Date().toLocaleDateString();
         let cameraStarted = false;  // Kamera durumu için bir değişken
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                const video = document.getElementById('video_feed'); // Video elementinin ID'si
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err) {
+                console.log("Kamera açma hatası: " + err);
+            });
 
         function updateCounter() {
             $.getJSON("/get_counter", function (data) {
