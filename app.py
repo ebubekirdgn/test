@@ -12,11 +12,11 @@ from exercises.lateral_raise_strategy import LateralRaiseStrategy
 from exercises.squat_strategy import SquatStrategy
 from models.exercise import add_exercise, create_exercises_table
 from models.user import create_user_table, get_db_connection
-from flask_cors import CORS
+from flask_cors import CORS  # CORS'u içe aktar
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
-CORS(app)  # CORS'u etkinleştir
+CORS(app)  # Uygulamaya CORS'u uygula
 
 # Egzersiz stratejilerini saklamak için bir sözlük oluştur
 exercise_strategies = {}
