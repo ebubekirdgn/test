@@ -16,7 +16,8 @@ from flask_cors import CORS  # CORS'u içe aktar
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
-CORS(app)  # Uygulamaya CORS'u uygula
+# Tüm sitelere izin vermek için CORS'u ayarla
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Egzersiz stratejilerini saklamak için bir sözlük oluştur
 exercise_strategies = {}
